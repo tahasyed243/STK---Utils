@@ -32,6 +32,14 @@ export default function TextForm(props) {
     setText(newText)
     props.showAlert("Every word converted in camelcase" , "success")
   }
+  const handlerRevClick = () => {
+    // console.log("Reverse has clicked: " + text)
+    let newText = text.split(" ")
+    .reverse()
+    .join("")
+    setText(newText)
+    props.showAlert("Every word reversed" , "success")
+  }
 
   const handleOnChnge = (event) => {
     // console.log("On Change")
@@ -47,19 +55,22 @@ export default function TextForm(props) {
         <h2>{props.heading}</h2>
         <div className="mb-3" style={{ backgroundColor: props.mode === 'dark' ? 'grey' : 'white' }}>
           <label htmlFor="myBox" className="form-label">Example textarea</label>
-          <textarea className="form-control" style={{ backgroundColor: props.mode === 'dark' ? 'grey' : 'white', color: props.mode === 'dark' ? 'white' : 'black' }} placeholder='Enter Your Text Here' value={text} onChange={handleOnChnge} id="myBox" rows="6"></textarea>
+          <textarea className="form-control" style={{ backgroundColor: props.mode === 'dark' ? '#6d6767' : 'white', color: props.mode === 'dark' ? 'white' : 'black' }} placeholder='Enter Your Text Here' value={text} onChange={handleOnChnge} id="myBox" rows="6"></textarea>
         </div>
         <div style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
-          <button className="btn btn-primary mx-2" onClick={handleUppClick}>Convert to UpperCase</button>
-          <button className="btn btn-primary mx-3" onClick={handleCapsClick}>Convert to Capitalize Case</button>
-          <button className="btn btn-primary mx-2" onClick={handleLowerClick}>Convert to LowerCase</button>
-          <button className="btn btn-primary mx-2" onClick={handleClrClick}>Reset</button>
+          <button className="btn btn-primary mx-2 my-1" disabled={text.length===0} onClick={handleUppClick}>Convert to UpperCase</button>
+          <button className="btn btn-primary mx-3 my-1" disabled={text.length===0} onClick={handleCapsClick}>Convert to Capitalize Case</button>
+          <button className="btn btn-primary mx-2 my-1" disabled={text.length===0} onClick={handleLowerClick}>Convert to LowerCase</button>
+          <button className="btn btn-primary mx-2 my-1" disabled={text.length===0} onClick={handlerRevClick}>Reverse Words</button>
+          <button className="btn btn-primary mx-2 my-1" disabled={text.length===0} onClick={handleClrClick}>Reset</button>
         </div>
       </div>
       <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
         <h2>Your text summary</h2>
-        <p><b>{text.split(" ").length}</b> Words, <b>{text.length} </b>Characters</p>
-        <p> <b>{0.008 * (text.split(" ").length)}</b> Minutes to read that</p>
+        <p><b>{text.split(" ").filter((element)=>{return element.length!==0}).length}
+          </b> Words, <b>{text.length} </b>Characters</p>
+        <p> <b>{0.008 * (text.split(" ").filter((element)=>{return element.length!==0}).length)}
+          </b> Minutes to read that</p>
         <h2>Preview</h2>
         <p>{text.length > 0 ? text : "Enter your text here"}</p>
       </div>

@@ -53,11 +53,13 @@ const App = () => {
       {/* <Navbar title="STK_Utils" mode={mode} toggleMode={toggleMode} /> */}
       <Router>
         <Navbar title="STK_Utils" aboutText="About" mode={mode} toggleMode={toggleMode} />
-        <Alert alert={alert} />
         <div className='container-3'>
           <Routes>
-            <Route exact path="" element={<TextForm heading="Enter The Text Here To Analyze" mode={mode} showAlert={showAlert} />} />
-            <Route exact path="/about" element={<About />} />
+            <Route exact path="/" 
+            element={<TextForm heading="Enter The Text Here To Analyze" 
+            mode={mode} showAlert={showAlert} />} 
+            />
+            <Route exact path="/about" element={<About mode={mode}  />} />
           </Routes>
         </div>
       </Router>
